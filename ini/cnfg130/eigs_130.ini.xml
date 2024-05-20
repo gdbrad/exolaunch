@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<chroma>
+  <Param>
+    <InlineMeasurements>
+      <elem>
+        <Name>CREATE_COLORVECS</Name>
+        <Frequency>1</Frequency>
+        <Param>
+          <num_vecs>64</num_vecs>
+          <decay_dir>3</decay_dir>
+          <num_iter>50</num_iter>
+          <width>3.0</width>
+          <num_orthog> 20</num_orthog>
+          <LinkSmearing>
+            <LinkSmearingType>STOUT_SMEAR</LinkSmearingType>
+            <link_smear_fact>0.1</link_smear_fact>
+            <link_smear_num>10</link_smear_num>
+            <no_smear_dir>3</no_smear_dir>
+          </LinkSmearing>
+        </Param>
+        <NamedObject>
+            <gauge_id>default_gauge_field</gauge_id>
+            <colorvec_id>eigeninfo_130</colorvec_id>
+          <ColorVecMapObject>
+            <MapObjType>MAP_OBJECT_MEMORY</MapObjType>
+            <FileName>colorvecs_64_cfg130.mod</FileName>
+          </ColorVecMapObject>
+        </NamedObject>
+      </elem>
+      <elem>
+      <annotation>
+        Save this copy in LIME format.
+      </annotation>
+      <Name>QIO_WRITE_NAMED_OBJECT</Name>
+      <Frequency>1</Frequency>
+      <NamedObject>
+        <object_id>eigeninfo_130</object_id>
+        <object_type>SubsetVectorsLatticeColorVector</object_type>
+      </NamedObject>
+      <File>
+        <file_name>./colorvec_64_cfg130.lime</file_name>
+        <file_volfmt>SINGLEFILE</file_volfmt>
+      </File>
+    </elem>
+    <elem>
+      <annotation>
+        Copy this map object.
+        In this case, it will be saved as a disk map object.
+      </annotation>
+      <Name>COPY_MAP_OBJECT</Name>
+      <Frequency>1</Frequency>
+      <NamedObject>
+        <object_type>KeyTintValTEVPairLatticeColorVector</object_type>
+        <input_id>eigeninfo_130</input_id>
+        <output_id>eigeninfo_130_copy</output_id>
+        <MapObject>
+          <MapObjType>MAP_OBJECT_DISK</MapObjType>
+          <FileName>./colorvec_64_cfg130.mod</FileName>
+        </MapObject>
+      </NamedObject>
+    </elem>
+
+    </InlineMeasurements>
+    <nrow>32 32 32 96</nrow>
+    </Param>
+    <RNG>
+      <Seed>
+        <elem>11</elem>
+        <elem>11</elem>
+        <elem>11</elem>
+        <elem>0</elem>
+      </Seed>
+    </RNG>
+    <Cfg>
+      <cfg_type>SZINQIO</cfg_type>
+      <cfg_file> 
+      /p/project/exotichadrons/pederiva/6stout/beta_3.70/ms_0.000/mud_-0.022/s32t96/cnfg/b3.70_ms0.000_mud-0.022_s32t96-000-n_cfg_130.lime
+      </cfg_file>
+      <parallel_io>false</parallel_io>
+  </Cfg>
+</chroma>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<chroma>
+  <Param>
+    <InlineMeasurements>
+    <elem>
+    <Name>MESON_MATELEM_COLORVEC_SUPERB</Name>
+    <Frequency>{{ Frequency }}</Frequency>
+    
+    <Param>
+      <version>4</version>
+      <use_derivP>true</use_derivP>
+      <t_source>{{ t_start }}</t_source>
+      <Nt_forward>{{ Nt_forward }}</Nt_forward>
+      <num_vecs>{{ num_vecs }}</num_vecs>
+      <mom2_min>{{ mom2_min }}</mom2_min>
+      <mom2_max>{{ mom2_max }}</mom2_max>
+      <phase>{{ phase|join(' ') }}</phase>
+      <displacement_length>1</displacement_length>
+      <decay_dir>{{ decay_dir }}</decay_dir>
+      <max_tslices_in_contraction>{{ Nt_forward }}</max_tslices_in_contraction>
+      <mom_list>
+      {% for momentum in momentum_list %}
+        <elem>{{ momentum }}</elem>
+      {% endfor %}
+      </mom_list>
+      <displacement_list>
+        {%- for displacement in displacement_list -%}
+          {% if displacement.strip() %}
+            <elem>{{ displacement | join }}</elem>
+          {%- endif -%}
+        {% endfor %}
+      </displacement_list>
+      <LinkSmearing>
+        <LinkSmearingType>{{ LinkSmearingType }}</LinkSmearingType>
+        <link_smear_fact>{{ link_smear_fact }}</link_smear_fact>
+        <link_smear_num>{{ link_smear_num }}</link_smear_num>
+        <no_smear_dir>{{ no_smear_dir }}</no_smear_dir>
+      </LinkSmearing>
+    </Param>
+  <NamedObject>
+    <gauge_id>{{ gauge_id }}</gauge_id>
+    <colorvec_files><elem>res/eigs{{ num_vecs }}.sdb</elem></colorvec_files>
+    <meson_op_file>res/meson-{{ num_vecs }}.sdb</meson_op_file>
+  </NamedObject>
+</elem>
+
+    </InlineMeasurements>
+    <nrow>{{NL}} {{NL}} {{NL}} {{NT}}</nrow>
+  </Param>
+  <RNG>
+    <Seed>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>0</elem>
+    </Seed>
+  </RNG>
+  <Cfg>
+    <cfg_type>SZINQIO</cfg_type>
+    <cfg_file>{{ cfg_path }}</cfg_file>
+    <parallel_io>false</parallel_io>
+  </Cfg>
+</chroma>

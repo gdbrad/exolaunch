@@ -1,0 +1,120 @@
+#chroma options 
+user: bradley1 
+chroma_bin: /p/scratch/exotichadrons/pederiva/chroma-distillation/install/chroma/bin
+chroma_extra_args: "-by 4 -bz 4 -pxy 0 -pxyz 0 -c $slurm_threads_per_proc_cpu -sy 1 -sz 1 -minct 1 -poolsize 1"
+cfgs_path: /p/project/exotichadrons/pederiva/6stout/beta_3.70/ms_0.000/mud_-0.022/s32t96/cnfg/
+# slurm job options 
+run_path: '' 
+job_name: distillation_test
+ranks_per_node: 10
+partition: batch
+nodes: 4 
+num_gpu: 4 
+account: bradley1 
+proj_name: exotichadrons,
+facility: juwels
+filename_out: str 
+superbblas_threads: 4
+
+#superb options 
+by: 4 
+bz: 4
+pxy: 0 
+pxyz: 0 
+sy: 1 
+sz: 1 
+
+
+eigs_slurm_nodes: 2
+eigs_chroma_geometry: [1, 2, 2, 4]
+eigs_chroma_minutes: 600
+eigs_transfer_back : false
+eigs_delete_after_transfer_back : false
+
+prop_slurm_nodes: 2
+prop_chroma_geometry: [1, 1, 1, 1] 
+prop_chroma_minutes: 600
+
+meson_slurm_nodes: 2
+meson_chroma_max_tslices_in_contraction: 64 # as large as possible
+meson_chroma_geometry: [1, 2, 2, 4]
+meson_chroma_minutes: 600
+meson_chroma_parts: 4 # split the time slices into this many different files
+
+baryon_slurm_nodes: 1 
+baryon_chroma_geometry: [1, 1, 1, 8]
+baryon_chroma_minutes: 120 
+
+
+# task properties 
+run_eigs: True
+run_perams: True
+run_mesons: True
+run_baryons: false
+run_exotract: false
+max_moms_per_job: 000
+# cfgspath: "$SCRATCH/"
+ssh_cmd: ssh -i id_ed25519 bradley1@jureca.fz-juelich.de
+
+# momentum properties 
+mom2_min : 0
+mom2_max : 2
+
+# ensemble properties 
+ens_abbr: a065m300
+#  ens_long: l4096b370m0250m00
+ens_long: b3.30_ms-0.057_mud-0.129_s32t64-000
+beta: 3.70
+mud: 0.129
+ms: 0.057
+NL: 40
+NT: 96
+a_fm: .065
+m_pi: 420
+cfgs: 2000
+cfg_i: 0
+cfg_f: 2000
+cfg_d: 10 #cfg step size 
+P: 000
+
+# distillation basis eg. eigs.sdb options
+Frequency: 1
+max_nvec: 128  # colorvecs to compute
+num_vecs: 64  # colorvecs to use
+decay_dir: 3
+t_start: 0
+Nt_forward: 4 
+Nt_backward: 64
+num_tries: -1
+max_rhs: 20
+phase: [0, 0, 0] 
+write_fingerprint: false
+  
+LinkSmearingType: STOUT_SMEAR
+link_smear_fact: 0.1
+link_smear_num: 10
+no_smear_dir: 3 
+
+gauge_id: default_gauge_field
+colorvec_out: eigs
+
+# perambulator options 
+prop_t_sources: seq 0 63
+prop_t_fwd: 64
+prop_t_back: 0
+prop_nvec: 96
+prop_zphases: 0.00
+prop_mass: -0.2350
+prop_clov: 1.20536588031793
+prop_mass_label: prop_mass
+
+# meson options 
+meson_nvec: 64 #must be same as nvec for eigs 
+meson_zphases: [0.00,2.00] #SPLIT THIS CHROMA TAKES WITHOUT COMMA OR []
+
+# BARYON OPTIONS 
+#baryon_nvec = nvec so dont need to define 
+baryon_zphases: 0.0 
+baryon_chroma_max_tslices_in_contraction: 1 #large as possible  
+baryon_chroma_max_moms_in_contraction: 1 #(0 == do all momenta at once)
+baryon_chroma_max_vecs: 2 # (0 == do all eigvecs contracted at once)
