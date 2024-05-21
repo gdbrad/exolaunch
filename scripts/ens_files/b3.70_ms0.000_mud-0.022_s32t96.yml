@@ -1,0 +1,103 @@
+#path options 
+code_dir: /p/scratch/exotichadrons/pederiva/chroma-distillation
+cfg_path: /p/project/exotichadrons/pederiva/6stout/beta_3.70/ms_0.000/mud_-0.022/s32t96/cnfg/
+metaq_dir: /home/grant/metaq
+# slurm job options 
+run_path: '/p/scratch/exotichadrons/exolauncher/res'
+job_name: eigs_distillation_test
+ranks_per_node: 10
+nodes: 4 
+num_gpu: 4 
+facility: jureca
+filename_out: str 
+superbblas_threads: 4
+omp_threads: 4
+
+# task properties 
+run_eigs: True
+run_perams: false
+run_meson: false
+run_baryon: false
+run_exotract: false
+max_moms_per_job: 000
+
+# ensemble properties 
+ens_short: test
+ens_long: b3.30_ms-0.057_mud-0.129_s32t64-000
+cfgs: 4000
+cfg_i: 10
+cfg_f: 4000
+cfg_d: 10 #cfg step size 
+#regular eigs inputs
+num_iter: 50
+num_orthog: 20
+
+# eigs options
+eigs_slurm_nodes: 2
+eigs_chroma_geometry: [1, 2, 2, 2]
+eigs_chroma_minutes: 400
+eigs_transfer_back : false
+eigs_delete_after_transfer_back : false
+
+# peram options 
+prop_slurm_nodes: 2
+prop_chroma_geometry: [1, 2, 2, 2] 
+prop_chroma_minutes: 600
+
+# meson options 
+meson_slurm_nodes: 2
+meson_chroma_max_tslices_in_contraction: 64 # as large as possible
+meson_chroma_geometry: [1, 2, 2, 2]
+meson_chroma_minutes: 600
+meson_chroma_parts: 4 # split the time slices into this many different files
+
+#baryon options 
+baryon_slurm_nodes: 1 
+baryon_chroma_geometry: [1, 2, 2, 2]
+baryon_chroma_minutes: 120 
+
+# momentum properties 
+mom2_min : 0
+mom2_max : 2
+
+# distillation basis eg. eigs.sdb options
+Frequency: 1
+max_nvec: 128  # colorvecs to compute
+num_vecs: 64  # colorvecs to use
+decay_dir: 3
+t_start: 0
+Nt_forward: 4 
+Nt_backward: 64
+num_tries: -1
+max_rhs: 20
+phase: [0, 0, 0] 
+write_fingerprint: false
+  
+LinkSmearingType: STOUT_SMEAR
+link_smear_fact: 0.1
+link_smear_num: 10
+no_smear_dir: 3 
+
+gauge_id: default_gauge_field
+colorvec_out: eigs
+
+# perambulator options 
+prop_t_sources: seq 0 63
+prop_t_fwd: 64
+prop_t_back: 0
+prop_nvec: 96
+prop_zphases: 0.00
+prop_mass: -0.2350
+prop_clov: 1.20536588031793
+prop_mass_label: prop_mass
+
+# meson options 
+meson_nvec: 64 #must be same as nvec for eigs 
+meson_zphases: [0.00,2.00] #SPLIT THIS CHROMA TAKES WITHOUT COMMA OR []
+
+# BARYON OPTIONS 
+#baryon_nvec = nvec so dont need to define 
+baryon_zphases: 0.0 
+baryon_chroma_max_tslices_in_contraction: 1 #large as possible  
+baryon_chroma_max_moms_in_contraction: 1 #(0 == do all momenta at once)
+baryon_chroma_max_vecs: 2 # (0 == do all eigvecs contracted at once)
